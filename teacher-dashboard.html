@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Dashboard - FL EduAcademy</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="firebase-config.js"></script>
+</head>
+<body>
+    <header>
+        <img src="images/logo.png" alt="FL EduAcademy Logo" class="logo">
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="logout.html">Log Out</a>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Welcome, Teacher!</h1>
+        <p>Select an action below:</p>
+
+        <div class="dashboard-options">
+            <a href="create-test.html" class="dashboard-card">Create Test</a>
+            <a href="upload-resources.html" class="dashboard-card">Upload Resources</a>
+            <a href="collaborate.html" class="dashboard-card">Collaborate with Teachers</a>
+            <a href="create-class.html" class="dashboard-card">Create Class</a>
+        </div>
+    </main>
+
+    <footer>
+        <p>Contact us: <a href="mailto:fleduportal25@gmail.com">fleduportal25@gmail.com</a></p>
+        <nav class="footer-nav">
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="terms.html">Terms & Conditions</a>
+            <a href="about.html">About Us</a>
+        </nav>
+        <p>&copy; 2025 FL EduAcademy. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Firebase Authentication Check
+        firebase.auth().onAuthStateChanged((user) => {
+            if (!user) {
+                alert("You must be logged in as a teacher to access this page.");
+                window.location.href = "login.html";
+            } else {
+                // Check user role
+                firebase.firestore().collection('users').doc(user.uid).get().then((doc) => {
+                    if (doc.exists && doc.data().role !== 'teacher') {
+                        alert("Access Denied! Only teachers can access this dashboard.");
+                        window.location.href = "index.html";
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
