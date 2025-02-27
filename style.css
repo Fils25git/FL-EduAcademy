@@ -1,0 +1,174 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+        margin: 0;
+            padding: 0;
+                box-sizing: border-box;
+                }
+
+                header {
+                    display: flex;
+                        justify-content: space-between;
+                            align-items: center;
+                                padding: 20px;
+                                    background-color: #4CAF50;
+                                        color: white;
+                                        }
+
+                                        header .logo {
+                                            height: 50px;
+                                            }
+
+                                            nav ul {
+                                                list-style: none;
+                                                    padding: 0;
+                                                        margin: 0;
+                                                        }
+
+                                                        nav ul li {
+                                                            display: inline;
+                                                                margin-left: 20px;
+                                                                }
+
+                                                                nav ul li a {
+                                                                    text-decoration: none;
+                                                                        color: white;
+                                                                            font-size: 16px;
+                                                                            }
+
+                                                                            /* Mobile view */
+                                                                            .hamburger-menu {
+                                                                                display: none;
+                                                                                    cursor: pointer;
+                                                                                        font-size: 30px;
+                                                                                        }
+
+                                                                                        main {
+                                                                                            padding: 40px;
+                                                                                            }
+
+                                                                                            .welcome-section {
+                                                                                                text-align: center;
+                                                                                                }
+
+                                                                                                .cta-buttons a {
+                                                                                                    padding: 10px 20px;
+                                                                                                        background-color: #4CAF50;
+                                                                                                            color: white;
+                                                                                                                text-decoration: none;
+                                                                                                                    margin: 10px;
+                                                                                                                        border-radius: 5px;
+                                                                                                                        }
+
+                                                                                                                        .cta-buttons a:hover {
+                                                                                                                            background-color: #45a049;
+                                                                                                                            }
+
+                                                                                                                            .features {
+                                                                                                                                display: flex;
+                                                                                                                                    justify-content: space-around;
+                                                                                                                                        margin-top: 40px;
+                                                                                                                                        }
+
+                                                                                                                                        .feature-item {
+                                                                                                                                            text-align: center;
+                                                                                                                                                width: 30%;
+                                                                                                                                                }
+
+                                                                                                                                                footer {
+                                                                                                                                                    background-color: #333;
+                                                                                                                                                        color: white;
+                                                                                                                                                            text-align: center;
+                                                                                                                                                                padding: 20px;
+                                                                                                                                                                }
+
+                                                                                                                                                                footer a {
+                                                                                                                                                                    color: #4CAF50;
+                                                                                                                                                                        text-decoration: none;
+                                                                                                                                                                        }
+
+                                                                                                                                                                        footer a:hover {
+                                                                                                                                                                            text-decoration: underline;
+                                                                                                                                                                            }
+
+                                                                                                                                                                            /* Media Queries for Responsive Design */
+                                                                                                                                                                            @media screen and (max-width: 768px) {
+                                                                                                                                                                                nav ul {
+                                                                                                                                                                                        display: none;
+                                                                                                                                                                                                flex-direction: column;
+                                                                                                                                                                                                        position: absolute;
+                                                                                                                                                                                                                top: 80px;
+                                                                                                                                                                                                                        right: 20px;
+                                                                                                                                                                                                                                background-color: #4CAF50;
+                                                                                                                                                                                                                                        padding: 20px;
+                                                                                                                                                                                                                                            }
+
+                                                                                                                                                                                                                                                nav ul li {
+                                                                                                                                                                                                                                                        margin: 10px 0;
+                                                                                                                                                                                                                                                            }
+
+                                                                                                                                                                                                                                                                .hamburger-menu {
+                                                                                                                                                                                                                                                                        display: block;
+                                                                                                                                                                                                                                                                            }
+
+                                                                                                                                                                                                                                                                                .main-container {
+                                                                                                                                                                                                                                                                                        padding: 20px;
+                                                                                                                                                                                                                                                                                            }
+
+                                                                                                                                                                                                                                                                                                .features {
+                                                                                                                                                                                                                                                                                                        flex-direction: column;
+                                                                                                                                                                                                                                                                                                                align-items: center;
+                                                                                                                                                                                                                                                                                                                    }
+
+                                                                                                                                                                                                                                                                                                                        .feature-item {
+                                                                                                                                                                                                                                                                                                                                width: 80%;
+                                                                                                                                                                                                                                                                                                                                        margin-bottom: 20px;
+                                                                                                                                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                                                                                                                                            }
+
+                                                                                                                                                                                                                                                                                                                                            @media screen and (min-width: 769px) {
+                                                                                                                                                                                                                                                                                                                                                nav ul {
+                                                                                                                                                                                                                                                                                                                                                        display: flex;
+                                                                                                                                                                                                                                                                                                                                                            }
+
+                                                                                                                                                                                                                                                                                                                                                                .features {
+                                                                                                                                                                                                                                                                                                                                                                        flex-direction: row;
+                                                                                                                                                                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                                                                                            /* About Us Page Styles */
+                                                                                                                                                                                                                                                                                            .about-content {
+                                                                                                                                                                                                                                                                                                margin: 20px;
+                                                                                                                                                                                                                                                                                                    padding: 20px;
+                                                                                                                                                                                                                                                                                                        background-color: #f9f9f9;
+                                                                                                                                                                                                                                                                                                            border-radius: 8px;
+                                                                                                                                                                                                                                                                                                            }
+
+                                                                                                                                                                                                                                                                                                            .about-content p {
+                                                                                                                                                                                                                                                                                                                font-size: 16px;
+                                                                                                                                                                                                                                                                                                                    line-height: 1.5;
+                                                                                                                                                                                                                                                                                                                        color: #333;
+                                                                                                                                                                                                                                                                                                                        }
+
+                                                                                                                                                                                                                                                                                                                        .about-content h2 {
+                                                                                                                                                                                                                                                                                                                            font-size: 20px;
+                                                                                                                                                                                                                                                                                                                                margin-top: 20px;
+                                                                                                                                                                                                                                                                                                                                    color: #333;
+                                                                                                                                                                                                                                                                                                                                    }
+
+                                                                                                                                                                                                                                                                                                                                    footer {
+                                                                                                                                                                                                                                                                                                                                        text-align: center;
+                                                                                                                                                                                                                                                                                                                                            padding: 20px;
+                                                                                                                                                                                                                                                                                                                                                background-color: #333;
+                                                                                                                                                                                                                                                                                                                                                    color: white;
+                                                                                                                                                                                                                                                                                                                                                    }
+
+                                                                                                                                                                                                                                                                                                                                                    footer a {
+                                                                                                                                                                                                                                                                                                                                                        color: #f1f1f1;
+                                                                                                                                                                                                                                                                                                                                                            margin: 0 10px;
+                                                                                                                                                                                                                                                                                                                                                                text-decoration: none;
+                                                                                                                                                                                                                                                                                                                                                                }
+
+                                                                                                                                                                                                                                                                                                                                                                footer a:hover {
+                                                                                                                                                                                                                                                                                                                                                                    text-decoration: underline;
+                                                                                                                                                                                                                                                                                                                                                                    }
+                                                                                                                                                                                                                                                                                                                                                                    
