@@ -1,174 +1,191 @@
-/* General Styles */
-body {
+/* General Page Styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
     font-family: Arial, sans-serif;
-        margin: 0;
-            padding: 0;
-                box-sizing: border-box;
-                }
+}
 
-                header {
-                    display: flex;
-                        justify-content: space-between;
-                            align-items: center;
-                                padding: 20px;
-                                    background-color: #4CAF50;
-                                        color: white;
-                                        }
+body {
+    background-color: #f4f4f4;
+    color: #333;
+    text-align: center;
+}
 
-                                        header .logo {
-                                            height: 50px;
-                                            }
+/* Header */
+header {
+    background: #007BFF;
+    color: white;
+    padding: 15px;
+    text-align: center;
+}
 
-                                            nav ul {
-                                                list-style: none;
-                                                    padding: 0;
-                                                        margin: 0;
-                                                        }
+.logo {
+    height: 50px;
+    display: block;
+    margin: 0 auto;
+}
 
-                                                        nav ul li {
-                                                            display: inline;
-                                                                margin-left: 20px;
-                                                                }
+/* Navigation */
+nav {
+    display: flex;
+    flex-direction: column; /* Ensures each link appears on a new line */
+    align-items: center;
+    padding: 10px;
+}
 
-                                                                nav ul li a {
-                                                                    text-decoration: none;
-                                                                        color: white;
-                                                                            font-size: 16px;
-                                                                            }
+nav a {
+    display: block; /* Forces links to appear one below the other */
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 8px;
+}
 
-                                                                            /* Mobile view */
-                                                                            .hamburger-menu {
-                                                                                display: none;
-                                                                                    cursor: pointer;
-                                                                                        font-size: 30px;
-                                                                                        }
+nav a:hover {
+    text-decoration: underline;
+}
 
-                                                                                        main {
-                                                                                            padding: 40px;
-                                                                                            }
+/* Hamburger Menu */
+.hamburger {
+    display: none;
+    font-size: 25px;
+    cursor: pointer;
+}
 
-                                                                                            .welcome-section {
-                                                                                                text-align: center;
-                                                                                                }
+@media screen and (max-width: 768px) {
+    nav {
+        display: none;
+    }
 
-                                                                                                .cta-buttons a {
-                                                                                                    padding: 10px 20px;
-                                                                                                        background-color: #4CAF50;
-                                                                                                            color: white;
-                                                                                                                text-decoration: none;
-                                                                                                                    margin: 10px;
-                                                                                                                        border-radius: 5px;
-                                                                                                                        }
+    nav.show {
+        display: flex;
+    }
 
-                                                                                                                        .cta-buttons a:hover {
-                                                                                                                            background-color: #45a049;
-                                                                                                                            }
+    .hamburger {
+        display: block;
+        text-align: center;
+        margin: 10px 0;
+    }
+}
 
-                                                                                                                            .features {
-                                                                                                                                display: flex;
-                                                                                                                                    justify-content: space-around;
-                                                                                                                                        margin-top: 40px;
-                                                                                                                                        }
+/* Main Content */
+main {
+    padding: 20px;
+    text-align: center;
+}
 
-                                                                                                                                        .feature-item {
-                                                                                                                                            text-align: center;
-                                                                                                                                                width: 30%;
-                                                                                                                                                }
+/* Forms */
+form {
+    background: white;
+    padding: 20px;
+    margin: 20px auto;
+    width: 90%;
+    max-width: 400px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+}
 
-                                                                                                                                                footer {
-                                                                                                                                                    background-color: #333;
-                                                                                                                                                        color: white;
-                                                                                                                                                            text-align: center;
-                                                                                                                                                                padding: 20px;
-                                                                                                                                                                }
+label {
+    display: block;
+    margin-bottom: 5px;
+    text-align: left;
+}
 
-                                                                                                                                                                footer a {
-                                                                                                                                                                    color: #4CAF50;
-                                                                                                                                                                        text-decoration: none;
-                                                                                                                                                                        }
+input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
 
-                                                                                                                                                                        footer a:hover {
-                                                                                                                                                                            text-decoration: underline;
-                                                                                                                                                                            }
+/* Buttons */
+button {
+    width: 100%;
+    padding: 12px;
+    background: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+}
 
-                                                                                                                                                                            /* Media Queries for Responsive Design */
-                                                                                                                                                                            @media screen and (max-width: 768px) {
-                                                                                                                                                                                nav ul {
-                                                                                                                                                                                        display: none;
-                                                                                                                                                                                                flex-direction: column;
-                                                                                                                                                                                                        position: absolute;
-                                                                                                                                                                                                                top: 80px;
-                                                                                                                                                                                                                        right: 20px;
-                                                                                                                                                                                                                                background-color: #4CAF50;
-                                                                                                                                                                                                                                        padding: 20px;
-                                                                                                                                                                                                                                            }
+button:hover {
+    background: #0056b3;
+}
 
-                                                                                                                                                                                                                                                nav ul li {
-                                                                                                                                                                                                                                                        margin: 10px 0;
-                                                                                                                                                                                                                                                            }
+/* Links */
+.form-links {
+    display: flex;
+    flex-direction: column; /* Ensures each link is on a new line */
+    margin-top: 10px;
+}
 
-                                                                                                                                                                                                                                                                .hamburger-menu {
-                                                                                                                                                                                                                                                                        display: block;
-                                                                                                                                                                                                                                                                            }
+.form-links a {
+    display: block;
+    text-align: center;
+    color: #007BFF;
+    text-decoration: none;
+    padding: 5px;
+}
 
-                                                                                                                                                                                                                                                                                .main-container {
-                                                                                                                                                                                                                                                                                        padding: 20px;
-                                                                                                                                                                                                                                                                                            }
+.form-links a:hover {
+    text-decoration: underline;
+}
 
-                                                                                                                                                                                                                                                                                                .features {
-                                                                                                                                                                                                                                                                                                        flex-direction: column;
-                                                                                                                                                                                                                                                                                                                align-items: center;
-                                                                                                                                                                                                                                                                                                                    }
+/* Dashboard Options */
+.dashboard-options {
+    display: flex;
+    flex-direction: column; /* Ensures cards appear in a column */
+    align-items: center;
+    gap: 15px;
+    padding: 20px;
+}
 
-                                                                                                                                                                                                                                                                                                                        .feature-item {
-                                                                                                                                                                                                                                                                                                                                width: 80%;
-                                                                                                                                                                                                                                                                                                                                        margin-bottom: 20px;
-                                                                                                                                                                                                                                                                                                                                            }
-                                                                                                                                                                                                                                                                                                                                            }
+.dashboard-card {
+    width: 90%;
+    max-width: 300px;
+    background: #fff;
+    padding: 15px;
+    text-decoration: none;
+    color: #007BFF;
+    border-radius: 8px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
 
-                                                                                                                                                                                                                                                                                                                                            @media screen and (min-width: 769px) {
-                                                                                                                                                                                                                                                                                                                                                nav ul {
-                                                                                                                                                                                                                                                                                                                                                        display: flex;
-                                                                                                                                                                                                                                                                                                                                                            }
+.dashboard-card:hover {
+    background: #007BFF;
+    color: white;
+}
 
-                                                                                                                                                                                                                                                                                                                                                                .features {
-                                                                                                                                                                                                                                                                                                                                                                        flex-direction: row;
-                                                                                                                                                                                                                                                                                                                                                                            }
-                                                                                                                                                                                                                                                                                                                                                                            }
-                                                                                                                                                                                                                                                                                            /* About Us Page Styles */
-                                                                                                                                                                                                                                                                                            .about-content {
-                                                                                                                                                                                                                                                                                                margin: 20px;
-                                                                                                                                                                                                                                                                                                    padding: 20px;
-                                                                                                                                                                                                                                                                                                        background-color: #f9f9f9;
-                                                                                                                                                                                                                                                                                                            border-radius: 8px;
-                                                                                                                                                                                                                                                                                                            }
+/* Footer */
+footer {
+    background: #333;
+    color: white;
+    padding: 20px;
+    margin-top: 20px;
+    text-align: center;
+}
 
-                                                                                                                                                                                                                                                                                                            .about-content p {
-                                                                                                                                                                                                                                                                                                                font-size: 16px;
-                                                                                                                                                                                                                                                                                                                    line-height: 1.5;
-                                                                                                                                                                                                                                                                                                                        color: #333;
-                                                                                                                                                                                                                                                                                                                        }
+.footer-nav {
+    display: flex;
+    flex-direction: column; /* Places footer links on new lines */
+    gap: 10px;
+    margin-top: 10px;
+}
 
-                                                                                                                                                                                                                                                                                                                        .about-content h2 {
-                                                                                                                                                                                                                                                                                                                            font-size: 20px;
-                                                                                                                                                                                                                                                                                                                                margin-top: 20px;
-                                                                                                                                                                                                                                                                                                                                    color: #333;
-                                                                                                                                                                                                                                                                                                                                    }
+.footer-nav a {
+    color: white;
+    text-decoration: none;
+}
 
-                                                                                                                                                                                                                                                                                                                                    footer {
-                                                                                                                                                                                                                                                                                                                                        text-align: center;
-                                                                                                                                                                                                                                                                                                                                            padding: 20px;
-                                                                                                                                                                                                                                                                                                                                                background-color: #333;
-                                                                                                                                                                                                                                                                                                                                                    color: white;
-                                                                                                                                                                                                                                                                                                                                                    }
-
-                                                                                                                                                                                                                                                                                                                                                    footer a {
-                                                                                                                                                                                                                                                                                                                                                        color: #f1f1f1;
-                                                                                                                                                                                                                                                                                                                                                            margin: 0 10px;
-                                                                                                                                                                                                                                                                                                                                                                text-decoration: none;
-                                                                                                                                                                                                                                                                                                                                                                }
-
-                                                                                                                                                                                                                                                                                                                                                                footer a:hover {
-                                                                                                                                                                                                                                                                                                                                                                    text-decoration: underline;
-                                                                                                                                                                                                                                                                                                                                                                    }
+.footer-nav a:hover {
+    text-decoration: underline;
+}
                                                                                                                                                                                                                                                                                                                                                                     
