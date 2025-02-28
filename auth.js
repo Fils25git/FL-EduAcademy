@@ -20,12 +20,13 @@ const db = getFirestore(app);
 document.getElementById("signup-form")?.addEventListener("submit", async (e) => {
     e.preventDefault();
     const firstName = document.getElementById("first-name").value;
-    const middleName = document.getElementById("middle-name").value || ""; // Optional
-    const lastName = document.getElementById("last-name").value;
-    const phoneNumber = document.getElementById("phone-number").value;
-    const email = document.getElementById("signup-email").value;
-    const password = document.getElementById("signup-password").value;
-    const confirmPassword = document.getElementById("confirm-password").value;
+const middleName = document.getElementById("middle-name").value || "";
+const lastName = document.getElementById("last-name").value;
+const phoneNumber = document.getElementById("phone-number").value;
+const email = document.getElementById("signup-email").value;
+const password = document.getElementById("signup-password").value;
+const confirmPassword = document.getElementById("confirm-password").value;
+
 
     if (password !== confirmPassword) {
         alert("Passwords do not match!");
