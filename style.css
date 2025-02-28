@@ -18,7 +18,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px;
+    padding: 15px 20px;
     background-color: #4CAF50;
     color: white;
     position: sticky;
@@ -27,12 +27,19 @@ header {
 }
 
 header .logo {
-    font-size: 24px;
-    font-weight: bold;
+    height: 50px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+}
+
+nav ul li {
+    margin-left: 20px;
 }
 
 nav a {
-    margin-left: 20px;
     color: white;
     text-decoration: none;
     font-size: 16px;
@@ -42,137 +49,64 @@ nav a:hover {
     text-decoration: underline;
 }
 
-/* Hero Section */
-.hero {
-    text-align: center;
-    padding: 100px 20px;
-    background-color: #e3f2fd;
-}
-
-.hero h1 {
-    font-size: 48px;
-    margin-bottom: 20px;
-}
-
-.hero p {
-    font-size: 20px;
-    margin-bottom: 30px;
-}
-
-.hero button {
-    padding: 15px 30px;
-    font-size: 18px;
-    color: white;
-    background-color: #4CAF50;
-    border: none;
-    border-radius: 5px;
+/* Hamburger Menu */
+.hamburger-menu {
+    font-size: 30px;
     cursor: pointer;
+    display: none;
 }
 
-.hero button:hover {
-    background-color: #45a049;
-}
-
-/* Features Section */
-.features {
+/* CTA Buttons */
+.cta-buttons {
     display: flex;
-    justify-content: space-around;
-    padding: 50px 20px;
-    background-color: white;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
 }
 
-.feature {
+.cta-item {
     text-align: center;
-    width: 30%;
+    margin-bottom: 15px;
 }
 
-.feature h3 {
-    margin-bottom: 10px;
-    font-size: 24px;
-}
-
-.feature p {
-    font-size: 16px;
-}
-
-/* Footer */
-footer {
-    background-color: #4CAF50;
-    color: white;
-    text-align: center;
-    padding: 20px;
-}
-
-footer p {
-    margin: 5px 0;
-}
-
-/* Form Sections (Sign-Up & Login) */
-.form-section {
-    width: 100%;
-    max-width: 400px;
-    margin: 50px auto;
-    padding: 20px;
-    background-color: white;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-
-.form-section h2 {
-    margin-bottom: 20px;
-    font-size: 24px;
-}
-
-.form-section input {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-}
-
-.form-section button {
-    width: 100%;
-    padding: 12px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+.btn {
+    display: inline-block;
+    padding: 12px 25px;
     font-size: 18px;
-}
-
-.form-section button:hover {
-    background-color: #45a049;
-}
-
-.form-section p {
-    margin-top: 10px;
-}
-
-.form-section a {
-    color: #4CAF50;
+    color: white;
+    background-color: #4CAF50;
+    border-radius: 5px;
     text-decoration: none;
+    transition: 0.3s ease;
 }
 
-.form-section a:hover {
-    text-decoration: underline;
+.btn:hover {
+    background-color: #45a049;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .features {
+    .hamburger-menu {
+        display: block;
+    }
+
+    nav ul {
+        display: none;
         flex-direction: column;
-        align-items: center;
+        background: #4CAF50;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 200px;
+        padding: 10px;
+        text-align: center;
     }
-    .feature {
-        width: 80%;
-        margin-bottom: 30px;
+
+    nav ul li {
+        margin: 10px 0;
     }
-    .form-section {
-        width: 90%;
+
+    nav ul.show {
+        display: flex;
     }
 }
