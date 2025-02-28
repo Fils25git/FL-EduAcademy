@@ -3,12 +3,13 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, se
 import { getFirestore, doc, setDoc, getDocs, collection, query, where } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
 
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_PROJECT_ID.appspot.com",
-    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-    appId: "YOUR_APP_ID"
+    apiKey: "AIzaSyBFQY3GlLIYthBfCweSkFPt-y1OLP9HA5o",
+    authDomain: "fleduportal.firebaseapp.com",
+    projectId: "fleduportal",
+    storageBucket: "fleduportal.firebasestorage.app",
+    messagingSenderId: "103377001270",
+    appId: "1:103377001270:web:47946b9237f57820c7b197"
+    measurementId: "G-LSBLB50H94"
 };
 
 const app = initializeApp(firebaseConfig);
