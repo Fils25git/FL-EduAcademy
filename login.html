@@ -5,81 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - FL EduAcademy</title>
     <link rel="stylesheet" href="style.css">
-    <script type="module" src="firebase-config.js"></script>
 </head>
 <body>
     <header>
-        <img src="images/logo.png" alt="FL EduAcademy Logo" class="logo">
-        <nav>
+        <a href="index.html">
+            <img src="logo.png" alt="FL EduAcademy Logo" style="height: 50px;">
+        </a> <br>
+        <nav> 
             <a href="index.html">Home</a>
-            <a href="signup.html">Sign Up</a>
+            <a href="userSelection.html">Resources</a>
+            <a href="1.html">About Us</a>
+            <a href="#contact">Contact</a>
         </nav>
     </header>
 
-    <main>
-        <h1>Login to Your Account</h1>
+    <section class="form-section">
+        <h2>Login to FL EduAcademy</h2>
         <form id="login-form">
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required placeholder="Enter your email">
+    <input type="text" id="login-identifier" name="identifier" placeholder="Enter email or phone number" required>
+    <input type="password" id="login-password" name="password" placeholder="Enter your password" required>
+    <button type="submit">Log In</button>
+</form>
 
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required placeholder="Enter your password">
+        <p><a href="reset-password" id="reset-password">Forgot Password?</a></p>
+        <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
+    </section>
 
-            <button type="submit">Log In</button>
-        </form>
-
-        <p><a href="#" id="forgot-password">Forgot Password?</a></p>
-        <p>Don't have an account? <a href="signup.html">Sign up here</a>.</p>
-    </main>
-
-    <footer>
-        <p>Contact us: <a href="mailto:fleduportal25@gmail.com">fleduportal25@gmail.com</a></p>
-        <nav class="footer-nav">
-            <a href="privacy.html">Privacy Policy</a>
-            <a href="terms.html">Terms & Conditions</a>
-            <a href="about.html">About Us</a>
-        </nav>
+    <footer id="contact">
+        <p>Phone/WhatsApp: +250798652481</p>
+        <p>Email: fleduportal25@gmail.com</p>
         <p>&copy; 2025 FL EduAcademy. All rights reserved.</p>
     </footer>
 
-    <script>
-        // Firebase Login Authentication
-        document.getElementById('login-form').addEventListener('submit', function (e) {
-            e.preventDefault();
-
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-
-            firebase.auth().signInWithEmailAndPassword(email, password)
-                .then((userCredential) => {
-                    const user = userCredential.user;
-
-                    // Redirect user based on role (Learner or Teacher)
-                    firebase.firestore().collection('users').doc(user.uid).get().then((doc) => {
-                        if (doc.exists) {
-                            const userData = doc.data();
-                            if (userData.role === 'teacher') {
-                                window.location.href = 'teacher-dashboard.html';
-                            } else {
-                                window.location.href = 'learner-dashboard.html';
-                            }
-                        }
-                    });
-                })
-                .catch((error) => {
-                    alert('Login failed: ' + error.message);
-                });
-        });
-
-        // Password Reset Function
-        document.getElementById('forgot-password').addEventListener('click', function () {
-            const email = prompt('Enter your registered email:');
-            if (email) {
-                firebase.auth().sendPasswordResetEmail(email)
-                    .then(() => alert('Password reset email sent! Check your inbox.'))
-                    .catch((error) => alert('Error: ' + error.message));
-            }
-        });
-    </script>
+    <script src="auth.js"></script>
 </body>
 </html>
