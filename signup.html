@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,103 +8,40 @@
 </head>
 <body>
     <header>
-        <img src="images/logo.png" alt="FL EduAcademy Logo" class="logo">
-        <nav>
+        <a href="index.html">
+            <img src="logo.png" alt="FL EduAcademy Logo" style="height: 50px;">
+        </a> <br>
+        <nav> 
             <a href="index.html">Home</a>
-            <a href="login.html">Log In</a>
+            <a href="userSelection.html">Resources</a>
+            <a href="1.html">About Us</a>
+            <a href="#contact">Contact</a>
         </nav>
     </header>
 
-    <main>
-        <h1>Create an Account</h1>
-        <form id="signup-form" method="POST" action="firebase-config.js">
-            <label for="fullname">Full Name:</label>
-            <input type="text" id="fullname" name="fullname" required placeholder="Enter your full name" value="">
+    <section class="form-section">
+        <h2>Sign Up for FL EduAcademy</h2>
+        <form id="signup-form">
+    <input type="text" id="first-name" name="firstName" placeholder="First Name" required>
+    <input type="text" id="middle-name" name="middleName" placeholder="Middle Name (Optional)">
+    <input type="text" id="last-name" name="lastName" placeholder="Last Name" required>
+    <input type="tel" id="phone-number" name="phoneNumber" placeholder="Phone Number" required>
+    <input type="email" id="signup-email" name="email" placeholder="Enter your email" required>
+    <input type="password" id="signup-password" name="password" placeholder="Enter your password" required>
+    <input type="password" id="confirm-password" name="confirmPassword" placeholder="Confirm your password" required>
+    <button type="submit">Sign Up</button>
+</form>
 
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required placeholder="Enter your email" value="">
+        <p>Already have an account? <a href="login.html">Log In here</a></p>
+    </section>
 
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required placeholder="Enter your password" value="">
-
-            <label for="confirm-password">Confirm Password:</label>
-            <input type="password" id="confirm-password" name="confirm-password" required placeholder="Confirm your password" value="">
-
-            <label for="phone">Phone Number:</label>
-            <input type="tel" id="phone" name="phone" required placeholder="Enter your phone number" value="">
-
-            <label for="role">Select Your Role:</label>
-            <select id="role" name="role" required>
-                <option value="learner">Learner</option>
-                <option value="teacher">Teacher</option>
-            </select>
-
-            <div class="terms">
-                <input type="checkbox" id="terms" name="terms" required>
-                <label for="terms">I agree to the <a href="terms.html" target="_blank">Terms & Conditions</a> and <a href="privacy.html" target="_blank">Privacy Policy</a></label>
-            </div>
-
-            <button type="submit">Sign Up</button>
-        </form>
-
-        <p>Already have an account? <a href="login.html">Log in here</a>.</p>
-    </main>
-
-    <footer>
-        <p>Contact us: <a href="mailto:fleduportal25@gmail.com">fleduportal25@gmail.com</a></p>
-        <nav class="footer-nav">
-            <a href="privacy.html">Privacy Policy</a>
-            <a href="terms.html">Terms & Conditions</a>
-            <a href="about.html">About Us</a>
-        </nav>
+    <footer id="contact">
+        <p>Phone/WhatsApp: +250798652481</p>
+        <p>Email: fleduportal25@gmail.com</p>
         <p>&copy; 2025 FL EduAcademy. All rights reserved.</p>
     </footer>
 
-    <script src="firebase-config.js"></script>
-    <script>
-        // Form submission logic (Firebase integration for signup)
-        const signupForm = document.getElementById('signup-form');
-        signupForm.addEventListener('submit', (e) => {
-            e.preventDefault(); // Prevent the default form submission
-
-            const fullname = document.getElementById('fullname').value;
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirm-password').value;
-            const phone = document.getElementById('phone').value;
-            const role = document.getElementById('role').value;
-
-            // Ensure password and confirm password match
-            if (password !== confirmPassword) {
-                alert('Passwords do not match!');
-                return;
-            }
-
-            // Use Firebase Authentication to create the user account
-            firebase.auth().createUserWithEmailAndPassword(email, password)
-                .then((userCredential) => {
-                    // Get user information
-                    const user = userCredential.user;
-
-                    // Optionally save more user data like fullname, phone, and role in Firestore
-                    firebase.firestore().collection('users').doc(user.uid).set({
-                        fullname: fullname,
-                        email: email,
-                        phone: phone,
-                        role: role
-                    }).then(() => {
-                        alert('Sign up successful!');
-                        window.location.href = 'login.html'; // Redirect to login after successful signup
-                    }).catch((error) => {
-                        console.error('Error saving user info: ', error);
-                    });
-
-                })
-                .catch((error) => {
-                    alert('Error during sign up: ' + error.message);
-                });
-        });
-    </script>
+    <script src="auth.js"></script>
 </body>
 </html>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+                                                                          
