@@ -1,64 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome - FL EduAcademy</title>
     <link rel="stylesheet" href="style.css">
-    <script defer src="menu.js"></script>
 </head>
-
 <body>
 
-    <header>
-        <a href="index.html">
-            <img src="logo.png" alt="FL EduAcademy Logo" class="logo">
-        </a>
-        <nav>
-            <div class="hamburger-menu" onclick="toggleMenu()">☰</div>
-            <ul id="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="privacy.html">Privacy Policy</a></li>
-                <li><a href="terms.html">Terms & Conditions</a></li>
-                <li><a href="login.html">Log In</a></li>
-                <li><a href="signup.html">Sign Up</a></li>
-            </ul>
-        </nav>
-    </header>
+<header>
+    <a href="index.html">
+        <img src="logo.png" alt="FL EduAcademy Logo" class="logo">
+    </a>
 
-    <main class="main-container">
-        <section class="welcome-section">
-            <h1>Welcome to FL EduAcademy</h1>
-            <p>Your one-stop solution for educational resources, assessments, and learning tools.</p>
-            <div class="cta-buttons">
-                <a href="login.html" class="btn">Log In</a>
+    <!-- Hamburger Menu Icon -->
+    <div class="hamburger-menu" onclick="toggleMenu()">☰</div>
+
+    <!-- Navigation Menu -->
+    <nav>
+        <ul id="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="login.html">Log In</a></li>
+            <li><a href="signup.html">Sign Up</a></li>
+            <li><a href="userSelection.html">Resources</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+</header>
+    <section class="hero"> 
+        <h1>Welcome to FL EduAcademy</h1>
+        <p>Where Teachers and Learners Connect to Share and Access Quality Educational Resources.</p> 
+        <div class="cta-buttons">
+            <div class="cta-item"> 
+                <p>If you already have an account:</p> <a href="login.html" class="btn">Log In</a>
+            </div> 
+            <div class="cta-item"> 
+                <p>New here? Please sign up first:</p> 
                 <a href="signup.html" class="btn">Sign Up</a>
             </div>
-        </section>
+        </div> 
+    </section> 
+    <section class="features"> 
+        <div class="feature"> 
+            <h3>Wide Range of Resources</h3>
+            <p>Access diverse educational materials tailored for teachers and learners.</p> 
+        </div> 
+        <div class="feature">
+            <h3>Easy to Navigate</h3>
+            <p>Find what you need quickly with our user-friendly interface.</p> 
+        </div>
+        <div class="feature"> 
+            <h3>Community Driven</h3> 
+            <p>Connect with educators and learners to share and discuss resources.</p> 
+        </div> 
+    </section>
+    <footer id="contact">
+        <p>Phone/WhatsApp: +250798652481</p>
+        <p>Email: <a href="mailto:fleduportal25@gmail.com">fleduportal25@gmail.com</a></p> 
+        <p>&copy; 2025 FL EduAcademy. All rights reserved.</p> 
+    </footer> 
+</body> 
+</html>
 
-        <section class="features">
-            <h2>Why Choose Us?</h2>
-            <div class="feature">
-                <h3>Interactive Learning</h3>
-                <p>Engage with dynamic resources and take tests that enhance your learning experience.</p>
-            </div>
-            <div class="feature">
-                <h3>Assessments</h3>
-                <p>Track your progress with regularly updated assessments designed to challenge you.</p>
-            </div>
-            <div class="feature">
-                <h3>Available for All Levels</h3>
-                <p>From preprimary to advanced level, we have materials suited for all learners.</p>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <p>&copy; 2025 FL EduAcademy. All rights reserved.</p>
-        <p>Contact us at: <a href="mailto:fleduportal25@gmail.com">fleduportal25@gmail.com</a></p>
-    </footer>
+<script>
+    function toggleMenu() {
+        var menu = document.getElementById("nav-links");
+        menu.classList.toggle("show");
+    }
+</script>
 
 </body>
-
 </html>
