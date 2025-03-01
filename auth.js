@@ -3,7 +3,7 @@ import { parsePhoneNumber } from "https://cdn.jsdelivr.net/npm/libphonenumber-js
 
 // Supabase configuration
 const supabaseUrl = 'https://uppmptshwlagdyswdvko.supabase.co'
-const supabaseKey = 'your-anon-public-key'  // Replace with your actual key
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVwcG1wdHNod2xhZ2R5c3dkdmtvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDA4MjA3ODMsImV4cCI6MjA1NjM5Njc4M30.rkXVCQoIun-Pff8APEbP98Cm0FvFt_BKRL81UkXl0IE'  // Replace with your actual key
 const supabase = createClient(supabaseUrl, supabaseKey)
 
 // Sign Up Function
