@@ -1,13 +1,60 @@
-(async () => {
-    const { createClient } = await import("https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2");
+// Ensure Supabase is loaded before this script runs
+const supabase = window.supabase.createClient(
+    "https://uppmptshwlagdyswdvko.supabase.co",
+    "your-supabase-key" // Replace with actual key
+);
 
-    // Supabase Configuration
-    
-import { createClient } from '@supabase/supabase-js'
+// Sign Up Function
+document.getElementById("signup-form")?.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-const supabaseUrl = 'https://uppmptshwlagdyswdvko.supabase.co'
-const supabaseKey = process.env.SUPABASE_KEY
-const supabase = createClient(supabaseUrl, supabaseKey)
+    const firstName = document.getElementById("first-name").value.trim();
+    const lastName = document.getElementById("last-name").value.trim();
+    const email = document.getElementById("signup-email").value.trim();
+    const password = document.getElementById("signup-password").value;
+    const confirmPassword = document.getElementById("confirm-password").value;
+
+    if (password !== confirmPassword) {
+        alert("Passwords do not match!");
+        return;
+    }
+
+    try {
+        const { data, error } = await supabase.auth.signUp({ email, password });
+
+        if (error) throw error;
+
+        await supabase.from("users").insert([
+            { id: data.user.id, first_name: firstName, last_name: lastName, email }
+        ]);
+
+        alert("Sign-up successful!");
+        window.location.href = "login.html";
+
+    } catch (error) {
+        alert(`Error: ${error.message}`);
+    }
+});
+
+// Login Function
+document.getElementById("login-form")?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const email = document.getElementById("login-email").value.trim();
+    const password = document.getElementById("login-password").value;
+
+    try {
+        const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+
+        if (error) throw error;
+
+        alert("Login successful!");
+        window.location.href = "dashboard.html"; 
+
+    } catch (error) {
+        alert(`Error: ${error.message}`);
+    }
+});
 
     // Password Fields
     const passwordInput = document.getElementById("signup-password");
