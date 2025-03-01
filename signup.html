@@ -153,11 +153,12 @@
 
                 if (insertError) {
                     console.error("Insert Error:", insertError);
-                    alert(`Error: ${insertError.message}`);
+                    alert(`Error inserting data: ${insertError.message}`);
                     return;
                 }
 
-                alert("Sign-up successful!");
+                // Confirm data insertion and redirect
+                alert("Sign-up successful! Redirecting...");
                 window.location.href = "login.html"; // Redirect to login page after successful sign-up
 
             } catch (error) {
@@ -166,6 +167,5 @@
             }
         });
     </script>
-
 </body>
 </html>
