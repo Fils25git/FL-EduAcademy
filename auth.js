@@ -1,7 +1,7 @@
 // Ensure Supabase is loaded before this script runs
 const supabase = window.supabase.createClient(
     "https://uppmptshwlagdyswdvko.supabase.co", // Supabase URL
-    "process.env.SUPABASE_KEY" // Replace with actual key
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVwcG1wdHNod2xhZ2R5c3dkdmtvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDA4MjA3ODMsImV4cCI6MjA1NjM5Njc4M30.rkXVCQoIun-Pff8APEbP98Cm0FvFt_BKRL81UkXl0IE" // Replace with actual key
 );
 
 // Sign Up Function
