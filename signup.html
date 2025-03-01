@@ -106,65 +106,6 @@
 });
 
     </script>
-    <script>
-        // Supabase Configuration
-const supabaseUrl = "https://uppmptshwlagdyswdvko.supabase.co";
-const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVwcG1wdHNod2xhZ2R5c3dkdmtvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDA4MjA3ODMsImV4cCI6MjA1NjM5Njc4M30.rkXVCQoIun-Pff8APEbP98Cm0FvFt_BKRL81UkXl0IE"; // Replace with your actual anon key
-const supabase = supabase.createClient(supabaseUrl, supabaseKey);
-
-// Wait for DOM to Load
-document.addEventListener("DOMContentLoaded", () => {
-    const signupForm = document.getElementById("signup-form");
-
-    if (signupForm) {
-        signupForm.addEventListener("submit", async (e) => {
-            e.preventDefault();
-
-            // Get form values
-            const firstName = document.getElementById("first-name").value.trim();
-            const lastName = document.getElementById("last-name").value.trim();
-            const email = document.getElementById("signup-email").value.trim();
-            const password = document.getElementById("signup-password").value;
-            const confirmPassword = document.getElementById("confirm-password").value;
-
-            // Validate inputs
-            if (!firstName || !lastName || !email || !password) {
-                alert("Please fill in all required fields.");
-                return;
-            }
-
-            if (password !== confirmPassword) {
-                alert("Passwords do not match!");
-                return;
-            }
-
-            try {
-                // Create user in Supabase Authentication
-                const { data, error } = await supabase.auth.signUp({
-                    email,
-                    password
-                });
-
-                if (error) throw error;
-
-                // Insert additional user details into the database
-                const { error: insertError } = await supabase
-                    .from("users")
-                    .insert([{ id: data.user.id, email, first_name: firstName, last_name: lastName }]);
-
-                if (insertError) throw insertError;
-
-                alert("Sign-up successful! Please check your email for verification.");
-                window.location.href = "login.html"; // Redirect to login page
-            } catch (error) {
-                console.error("Error:", error);
-                alert(`Error: ${error.message}`);
-            }
-        });
-    }
-});
-
-    </script>
 
     <!-- Link to auth.js script -->
     <script src="auth.js"></script>
