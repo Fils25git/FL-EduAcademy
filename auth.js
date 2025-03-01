@@ -1,13 +1,14 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"; 
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
 import { getFirestore, doc, setDoc, getDocs, collection, query, where } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+import { parsePhoneNumber } from "https://cdn.jsdelivr.net/npm/libphonenumber-js@1.9.47/bundle/libphonenumber-min.js";
 
 // Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyBFQY3GlLIYthBfCweSkFPt-y1OLP9HA5o",
     authDomain: "fleduportal.firebaseapp.com",
     projectId: "fleduportal",
-    storageBucket: "fleduportal.firebasestorage.app",
+    storageBucket: "fleduportal.firebasestorage.app", // Remains as is per your configuration
     messagingSenderId: "103377001270",
     appId: "1:103377001270:web:47946b9237f57820c7b197",
     measurementId: "G-LSBLB50H94"
@@ -31,14 +32,13 @@ document.getElementById("signup-form")?.addEventListener("submit", async (e) => 
     const password = document.getElementById("signup-password").value;
     const confirmPassword = document.getElementById("confirm-password").value;
 
-    // Validate phone number using libphonenumber-js
     try {
+        // Validate and format phone number using libphonenumber-js
         const phone = parsePhoneNumber(phoneNumber);
         if (!phone.isValid()) {
             alert("Please enter a valid phone number.");
             return;
         }
-
         const formattedPhoneNumber = phone.formatInternational();
 
         // Check if the passwords match
@@ -81,7 +81,7 @@ document.getElementById("signup-form")?.addEventListener("submit", async (e) => 
 // Login Function (Supports email or phone number)
 document.getElementById("login-form")?.addEventListener("submit", async (e) => {
     e.preventDefault();
-    const identifier = document.getElementById("login-identifier").value;
+    let identifier = document.getElementById("login-identifier").value;
     const password = document.getElementById("login-password").value;
 
     try {
@@ -89,6 +89,14 @@ document.getElementById("login-form")?.addEventListener("submit", async (e) => {
             // Login with email
             await signInWithEmailAndPassword(auth, identifier, password);
         } else {
+            // Attempt to format the phone number entered for consistent querying
+            try {
+                const phone = parsePhoneNumber(identifier);
+                identifier = phone.formatInternational();
+            } catch (formatError) {
+                // If parsing fails, the identifier remains as entered.
+            }
+
             // Login with phone number
             const usersRef = collection(db, "users");
             const q = query(usersRef, where("phoneNumber", "==", identifier));
@@ -122,4 +130,3 @@ document.getElementById("reset-password")?.addEventListener("click", async () =>
         }
     }
 });
-
