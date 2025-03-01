@@ -80,11 +80,14 @@ document.getElementById("signup-form")?.addEventListener("submit", async (e) => 
 
 // Login Function (Supports email or phone number)
 document.getElementById("login-form")?.addEventListener("submit", async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent form submission from refreshing the page
+
     let identifier = document.getElementById("login-identifier").value;
     const password = document.getElementById("login-password").value;
 
     try {
+        console.log("Login attempt with:", identifier, password); // Log credentials
+
         if (identifier.includes("@")) {
             // Login with email
             await signInWithEmailAndPassword(auth, identifier, password);
@@ -95,6 +98,8 @@ document.getElementById("login-form")?.addEventListener("submit", async (e) => {
                 identifier = phone.formatInternational();
             } catch (formatError) {
                 // If parsing fails, the identifier remains as entered.
+                console.log("Invalid phone number format:", identifier);
+                throw new Error("Invalid phone number format.");
             }
 
             // Login with phone number
@@ -114,7 +119,7 @@ document.getElementById("login-form")?.addEventListener("submit", async (e) => {
         window.location.href = "dashboard.html"; // Redirect to dashboard page
 
     } catch (error) {
-        console.error(error);
+        console.error("Login error:", error); // Log the error to console for better debugging
         // Handle specific error codes for better messaging
         if (error.code === "auth/wrong-password") {
             alert("Incorrect password. Please try again.");
