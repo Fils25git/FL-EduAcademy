@@ -108,52 +108,76 @@
 
     </script>
     <script>
-        document.getElementById("signup-form")?.addEventListener("submit", async (e) => {
-    e.preventDefault();
+        // Initialize Supabase
+const supabaseUrl = 'https://uppmptshwlagdyswdvko.supabase.co';
+const supabaseKey = 'your-anon-public-key';  // Replace with your actual anon key
+const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
-    const email = document.getElementById("signup-email").value;
-    const password = document.getElementById("signup-password").value;
-    const confirmPassword = document.getElementById("confirm-password").value;
+// Wait until the DOM is fully loaded before running JavaScript
+document.addEventListener("DOMContentLoaded", () => {
+    const signupForm = document.getElementById("signup-form");
 
-    try {
-        // Check if passwords match
-        if (password !== confirmPassword) {
-            alert("Passwords do not match!");
-            return;
-        }
+    if (signupForm) { // Ensure the form exists before adding event listeners
+        signupForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
 
-        // Create user using Supabase Authentication
-        const { user, error } = await supabase.auth.signUp({
-            email,
-            password
+            // Get form field values safely
+            const firstName = document.getElementById("first-name")?.value || "";
+            const lastName = document.getElementById("last-name")?.value || "";
+            const email = document.getElementById("signup-email")?.value;
+            const password = document.getElementById("signup-password")?.value;
+            const confirmPassword = document.getElementById("confirm-password")?.value;
+
+            if (!email || !password) {
+                alert("Please fill in all required fields.");
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                alert("Passwords do not match!");
+                return;
+            }
+
+            try {
+                // Sign up the user with Supabase authentication
+                const { data, error } = await supabase.auth.signUp({
+                    email,
+                    password
+                });
+
+                if (error) {
+                    throw new Error(error.message);
+                }
+
+                // Store additional user details in Supabase table
+                const { error: insertError } = await supabase
+                    .from("users")
+                    .insert([{
+                        id: data.user.id, // Store the generated user ID
+                        email,
+                        first_name: firstName,
+                        last_name: lastName
+                    }]);
+
+                if (insertError) {
+                    console.error("Error storing user data:", insertError);
+                    alert("Error storing user information.");
+                    return;
+                }
+
+                alert("Sign-up successful!");
+                window.location.href = "login.html"; // Redirect to login page
+
+            } catch (error) {
+                console.error("Error:", error);
+                alert(`Error: ${error.message}`);
+            }
         });
-
-        if (error) {
-            throw new Error(error.message);
-        }
-
-        // After sign-up, store additional user details (First Name, etc.) in your database
-        const { data, error: insertError } = await supabase
-          .from('users')  // Assuming you have a 'users' table
-          .insert([{
-              id: user.id, // Supabase provides a unique user ID
-              email,
-              first_name: document.getElementById("first-name").value,
-              last_name: document.getElementById("last-name").value,
-              phone_number: document.getElementById("phone-number").value
-          }]);
-
-        if (insertError) {
-            console.error("Error storing user data:", insertError);
-            alert("Error storing user information.");
-        }
-
-        alert("Sign-up successful!");
-        window.location.href = "login.html"; // Redirect to login page
-
-    } catch (error) {
-        alert(`Error: ${error.message}`);
+    } else {
+        console.error("Signup form not found in the DOM.");
     }
+});
+
 });
 
     </script>
