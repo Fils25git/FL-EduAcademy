@@ -3,17 +3,16 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, se
 import { getFirestore, doc, setDoc, getDocs, collection, query, where } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
 import { parsePhoneNumber } from "https://cdn.jsdelivr.net/npm/libphonenumber-js@1.9.47/bundle/libphonenumber-min.js";
 
-// Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-    apiKey: "AIzaSyBFQY3GlLIYthBfCweSkFPt-y1OLP9HA5o",
-    authDomain: "fleduportal.firebaseapp.com",
-    projectId: "fleduportal",
-    storageBucket: "fleduportal.firebasestorage.app", // Remains as is per your configuration
-    messagingSenderId: "103377001270",
-    appId: "1:103377001270:web:47946b9237f57820c7b197",
-    measurementId: "G-LSBLB50H94"
+  apiKey: "AIzaSyBlWi6WIQi1c6TYasps8UpuCpz1EUJ8fYE",
+  authDomain: "fleduacademy-7b378.firebaseapp.com",
+  projectId: "fleduacademy-7b378",
+  storageBucket: "fleduacademy-7b378.firebasestorage.app",
+  messagingSenderId: "630369179653",
+  appId: "1:630369179653:web:e594eb02454392b37de46c",
+  measurementId: "G-FLS5SLG9PE"
 };
-
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
