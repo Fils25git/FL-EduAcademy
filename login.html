@@ -1,14 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Meta Tags -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - FL EduAcademy</title>
-    <link rel="stylesheet" href="style.css"> <!-- Link to your CSS file -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js"></script>
+    <meta name="description" content="FL EduAcademy - Online Learning Platform">
+    
+    <!-- Page Title -->
+    <title>FL EduAcademy</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="logo.png" type="image/png">
+
+    <!-- Supabase Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- JavaScript File for Supabase Auth -->
+    <script defer src="auth.js"></script>
 </head>
+
 <body>
 
     <header>
@@ -56,68 +69,6 @@
         <p>Email: fleduportal25@gmail.com</p>
         <p>&copy; 2025 FL EduAcademy. All rights reserved.</p>
     </footer>
-
-    <!-- Login Firebase Script -->
-    <script>
-        // Initialize Firebase
-        const firebaseConfig = {
-            apiKey: "AIzaSyBlWi6WIQi1c6TYasps8UpuCpz1EUJ8fYE",
-            authDomain: "fleduacademy-7b378.firebaseapp.com",
-            projectId: "fleduacademy-7b378",
-            storageBucket: "fleduacademy-7b378.firebasestorage.app",
-            messagingSenderId: "630369179653",
-            appId: "1:630369179653:web:e594eb02454392b37de46c",
-            measurementId: "G-FLS5SLG9PE"
-        };
-
-        // Initialize Firebase App
-        const app = firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
-
-        // Handle Login
-        document.getElementById("login-form").addEventListener("submit", function(e) {
-            e.preventDefault();
-            const identifier = document.getElementById("login-identifier").value;
-            const password = document.getElementById("login-password").value;
-
-            let loginMethod;
-            if (identifier.includes("@")) {
-                loginMethod = auth.signInWithEmailAndPassword;
-            } else {
-                loginMethod = auth.signInWithPhoneNumber;
-            }
-
-            // Login using email/phone
-            loginMethod(identifier, password).then((userCredential) => {
-                const user = userCredential.user;
-                console.log("Logged in as:", user);
-                // Redirect to the dashboard or home page
-                window.location.href = "dashboard.html";
-            }).catch((error) => {
-                console.error("Login error:", error.message);
-            });
-        });
-    </script>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            var currentPage = window.location.pathname.split("/").pop();
-
-            if (currentPage === "login.html") {
-                var loginLink = document.querySelector(".nav-login");
-                if (loginLink) loginLink.remove();
-            }
-
-            // Hamburger menu toggle
-            var menuButton = document.querySelector(".hamburger-menu");
-            var menu = document.getElementById("nav-links");
-
-            if (menuButton && menu) {
-                menuButton.addEventListener("click", function () {
-                    menu.classList.toggle("show");
-                });
-            }
-        });
-    </script>
+<script module src="auth.js></script>
 </body>
 </html>
