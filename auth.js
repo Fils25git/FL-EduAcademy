@@ -1,9 +1,9 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"; 
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
 import { getFirestore, doc, setDoc, getDocs, collection, query, where } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
 import { parsePhoneNumber } from "https://cdn.jsdelivr.net/npm/libphonenumber-js@1.9.47/bundle/libphonenumber-min.js";
 
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// Firebase configuration (Updated)
 const firebaseConfig = {
   apiKey: "AIzaSyBlWi6WIQi1c6TYasps8UpuCpz1EUJ8fYE",
   authDomain: "fleduacademy-7b378.firebaseapp.com",
@@ -13,6 +13,7 @@ const firebaseConfig = {
   appId: "1:630369179653:web:e594eb02454392b37de46c",
   measurementId: "G-FLS5SLG9PE"
 };
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
@@ -137,4 +138,3 @@ document.getElementById("reset-password")?.addEventListener("click", async () =>
         }
     }
 });
-
