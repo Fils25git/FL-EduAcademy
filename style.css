@@ -25,9 +25,9 @@ body {
     margin: 10px auto;
  }
 /* Header Styling */
+/* Header Styling */
 header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     padding: 20px 30px;
     background-color: #4CAF50;
@@ -35,6 +35,61 @@ header {
     position: sticky;
     top: 0;
     z-index: 1000;
+}
+
+.hamburger-menu {
+    font-size: 24px;
+    cursor: pointer;
+    margin-right: 20px;
+}
+
+.logo {
+    height: 50px;
+}
+
+nav {
+    flex-grow: 1;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+}
+
+nav ul li {
+    margin-left: 25px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design for Mobile Devices */
+@media (max-width: 768px) {
+    nav ul {
+        display: none;
+        flex-direction: column;
+        background: #4CAF50;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        padding: 10px 0;
+        text-align: center;
+    }
+    nav ul.show {
+        display: flex;
+    }
+    nav ul li {
+        margin: 10px 0;
+    }
 }
 
 header .logo {
