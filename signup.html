@@ -5,13 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up - FL EduAcademy</title>
     <link rel="stylesheet" href="style.css"> <!-- Link to your external CSS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/libphonenumber-js/1.9.33/libphonenumber-max.js"></script> <!-- Phone validation script -->
     <link rel="icon" href="logo.png" type="image/png">
 
     <!-- Supabase Client -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <!-- JavaScript File for Supabase Auth -->
-    <script type="module" src="auth.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script type="module" src="auth.js"></script>
+
 </head>
 <body>
 
@@ -66,7 +65,8 @@
             <p>Already have an account? <a href="login.html">Log In here</a></p>
 
             <!-- Announcement Section for Password Match -->
-            <div id="password-announcement" style="color: red; font-weight: bold;"></div>
+            <p id="password-message" style="font-weight: bold;"></p>
+
         </div>
     </section>
 
@@ -76,7 +76,6 @@
         <p>Email: fleduportal25@gmail.com</p>
         <p>&copy; 2025 FL EduAcademy. All rights reserved.</p>
     </footer>
-
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             // Hamburger menu toggle
@@ -90,93 +89,5 @@
             }
         });
     </script>
-
-    <script>
-        // Supabase setup
-        const supabaseUrl = 'https://uppmptshwlagdyswdvko.supabase.co';
-        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVwcG1wdHNod2xhZ2R5c3dkdmtvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDA4MjA3ODMsImV4cCI6MjA1NjM5Njc4M30.rkXVCQoIun-Pff8APEbP98Cm0FvFt_BKRL81UkXl0IE';  // Replace with your actual Supabase anon key
-        const supabase = createClient(supabaseUrl, supabaseKey);
-
-        // Sign Up Function
-        document.getElementById("signup-form").addEventListener("submit", async (e) => {
-            e.preventDefault();
-
-            const firstName = document.getElementById("first-name").value.trim();
-            const middleName = document.getElementById("middle-name").value.trim() || "";
-            const lastName = document.getElementById("last-name").value.trim();
-            const phoneNumber = document.getElementById("phone-number").value.trim();
-            const email = document.getElementById("signup-email").value.trim();
-            const password = document.getElementById("signup-password").value;
-            const confirmPassword = document.getElementById("confirm-password").value;
-
-            // Clear any previous messages
-            const announcement = document.getElementById("password-announcement");
-            announcement.textContent = "";
-
-            // Validate form data
-            if (!email || !password || !firstName || !lastName || !phoneNumber) {
-                alert("Please fill in all required fields.");
-                return;
-            }
-
-            if (password !== confirmPassword) {
-                // Show password mismatch announcement
-                announcement.textContent = "Passwords do not match!";
-                announcement.style.color = "red";
-                return;
-            }
-
-            // Show success message when passwords match
-            announcement.textContent = "Passwords match!";
-            announcement.style.color = "green";
-
-            try {
-                // Validate phone number
-                const phone = libphonenumber.parsePhoneNumber(phoneNumber);
-                if (!phone.isValid()) {
-                    alert("Please enter a valid phone number.");
-                    return;
-                }
-                const formattedPhoneNumber = phone.formatInternational();
-
-                // Sign up the user in Supabase Authentication
-                const { data, error: signUpError } = await supabase.auth.signUp({
-                    email,
-                    password
-                });
-
-                if (signUpError) {
-                    console.error("Sign Up Error:", signUpError);
-                    alert(`Error: ${signUpError.message}`);
-                    return;
-                }
-
-                // Insert user data into the "users" table in Supabase
-                const { error: insertError } = await supabase.from("users").insert([{
-                    id: data.user.id,
-                    first_name: firstName,
-                    middle_name: middleName,
-                    last_name: lastName,
-                    phone_number: formattedPhoneNumber,
-                    email: email
-                }]);
-
-                if (insertError) {
-                    console.error("Insert Error:", insertError);
-                    alert(`Error inserting data: ${insertError.message}`);
-                    return;
-                }
-
-                // Successfully signed up and inserted data
-                alert("Sign-up successful! Redirecting...");
-                window.location.href = "login.html"; // Redirect to login page after successful sign-up
-
-            } catch (error) {
-                console.error("Error:", error);
-                alert(`Error: ${error.message}`);
-            }
-        });
-    </script>
-
 </body>
 </html>
