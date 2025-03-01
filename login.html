@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - FL EduAcademy</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css"> <!-- Link to your CSS file -->
 </head>
 <body>
+
     <header>
         <a href="index.html">
             <img src="logo.png" alt="FL EduAcademy Logo" style="height: 50px;">
@@ -19,24 +20,33 @@
         </nav>
     </header>
 
+    <!-- Login Form Section -->
     <section class="form-section">
         <h2>Login to FL EduAcademy</h2>
-<form id="login-form">
-    <input type="text" id="login-identifier" name="identifier" placeholder="Enter email or phone number" required>
-    <input type="password" id="login-password" name="password" placeholder="Enter your password" required>
-    <button type="submit">Log In</button>
-</form>
+        <form id="login-form">
+            <div class="form-group">
+                <label for="login-identifier">Email or Phone Number</label>
+                <input type="text" id="login-identifier" name="identifier" placeholder="Enter email or phone number" required>
+            </div>
+            <div class="form-group">
+                <label for="login-password">Password</label>
+                <input type="password" id="login-password" name="password" placeholder="Enter your password" required>
+            </div>
+            <button type="submit" class="btn">Log In</button>
+        </form>
 
         <p><a href="reset-password.html" id="reset-password">Forgot Password?</a></p>
         <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
     </section>
 
+    <!-- Footer -->
     <footer id="contact">
         <p>Phone/WhatsApp: +250798652481</p>
         <p>Email: fleduportal25@gmail.com</p>
         <p>&copy; 2025 FL EduAcademy. All rights reserved.</p>
     </footer>
 
+    <!-- Link to auth.js script -->
     <script src="auth.js"></script>
 </body>
 </html>
