@@ -1,14 +1,14 @@
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up - FL EduAcademy</title>
-    <link rel="stylesheet" href="style.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/libphonenumber-js/1.9.33/libphonenumber-max.js"></script>
-
+    <link rel="stylesheet" href="style.css"> <!-- Link to your external CSS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/libphonenumber-js/1.9.33/libphonenumber-max.js"></script> <!-- Phone validation script -->
 </head>
 <body>
+
     <header>
         <a href="index.html">
             <img src="logo.png" alt="FL EduAcademy Logo" style="height: 50px;">
@@ -21,29 +21,51 @@
         </nav>
     </header>
 
+    <!-- Form Section: Sign Up Form -->
     <section class="form-section">
         <h2>Sign Up for FL EduAcademy</h2>
         <form id="signup-form">
-    <input type="text" id="first-name" name="firstName" placeholder="First Name" required>
-    <input type="text" id="middle-name" name="middleName" placeholder="Middle Name (Optional)">
-    <input type="text" id="last-name" name="lastName" placeholder="Last Name" required>
-    <input type="tel" id="phone-number" name="phoneNumber" placeholder="Phone Number" required>
-    <input type="email" id="signup-email" name="email" placeholder="Enter your email" required>
-    <input type="password" id="signup-password" name="password" placeholder="Enter your password" required>
-    <input type="password" id="confirm-password" name="confirmPassword" placeholder="Confirm your password" required>
-    <button type="submit">Sign Up</button>
-</form>
-
+            <div class="form-group">
+                <label for="first-name">First Name</label>
+                <input type="text" id="first-name" name="firstName" placeholder="First Name" required>
+            </div>
+            <div class="form-group">
+                <label for="middle-name">Middle Name</label>
+                <input type="text" id="middle-name" name="middleName" placeholder="Middle Name (Optional)">
+            </div>
+            <div class="form-group">
+                <label for="last-name">Last Name</label>
+                <input type="text" id="last-name" name="lastName" placeholder="Last Name" required>
+            </div>
+            <div class="form-group">
+                <label for="phone-number">Phone Number</label>
+                <input type="tel" id="phone-number" name="phoneNumber" placeholder="Phone Number" required>
+            </div>
+            <div class="form-group">
+                <label for="signup-email">Email</label>
+                <input type="email" id="signup-email" name="email" placeholder="Enter your email" required>
+            </div>
+            <div class="form-group">
+                <label for="signup-password">Password</label>
+                <input type="password" id="signup-password" name="password" placeholder="Enter your password" required>
+            </div>
+            <div class="form-group">
+                <label for="confirm-password">Confirm Password</label>
+                <input type="password" id="confirm-password" name="confirmPassword" placeholder="Confirm your password" required>
+            </div>
+            <button type="submit" class="btn">Sign Up</button>
+        </form>
         <p>Already have an account? <a href="login.html">Log In here</a></p>
     </section>
 
+    <!-- Footer -->
     <footer id="contact">
         <p>Phone/WhatsApp: +250798652481</p>
         <p>Email: fleduportal25@gmail.com</p>
         <p>&copy; 2025 FL EduAcademy. All rights reserved.</p>
     </footer>
 
+    <!-- Link to auth.js script -->
     <script src="auth.js"></script>
 </body>
 </html>
-                                                                          
