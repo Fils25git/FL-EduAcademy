@@ -43,11 +43,23 @@ document.getElementById("login-form")?.addEventListener("submit", async (e) => {
     const email = document.getElementById("login-email").value.trim();
     const password = document.getElementById("login-password").value;
 
+    if (!email || !password) {
+        alert("Please fill in both email and password.");
+        return;
+    }
+
     try {
+        console.log("Attempting login with:", email); // Debugging log
+
         const { data, error } = await supabase.auth.signInWithPassword({ email, password });
 
-        if (error) throw error;
+        // Check for errors in the response
+        if (error) {
+            console.error("Error during login:", error.message); // Debugging log
+            throw error;
+        }
 
+        // If successful
         alert("Login successful!");
         window.location.href = "dashboard.html"; 
 
@@ -55,6 +67,7 @@ document.getElementById("login-form")?.addEventListener("submit", async (e) => {
         alert(`Error: ${error.message}`);
     }
 });
+
 
 // Password Fields
 const passwordInput = document.getElementById("signup-password");
