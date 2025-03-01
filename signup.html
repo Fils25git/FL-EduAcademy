@@ -94,7 +94,12 @@
         const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVwcG1wdHNod2xhZ2R5c3dkdmtvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDA4MjA3ODMsImV4cCI6MjA1NjM5Njc4M30.rkXVCQoIun-Pff8APEbP98Cm0FvFt_BKRL81UkXl0IE';  // Replace with your actual Supabase key
         const supabase = createClient(supabaseUrl, supabaseKey);
 
-        // Handle sign-up form submission
+         // Supabase configuration
+        const supabaseUrl = 'https://uppmptshwlagdyswdvko.supabase.co';  // Replace with your Supabase URL
+        const supabaseKey = 'YOUR_SUPABASE_ANON_KEY';  // Replace with your actual Supabase anon key
+        const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+        // Sign Up Function
         document.getElementById("signup-form")?.addEventListener("submit", async (e) => {
             e.preventDefault();
 
@@ -107,6 +112,7 @@
             const password = document.getElementById("signup-password").value;
             const confirmPassword = document.getElementById("confirm-password").value;
 
+            // Validate form data
             if (!email || !password || !firstName || !lastName || !phoneNumber) {
                 alert("Please fill in all required fields.");
                 return;
@@ -118,29 +124,49 @@
             }
 
             try {
-                // Sign up the user with Supabase authentication
-                const { data, error } = await supabase.auth.signUp({ email, password });
+                // Validate and format phone number using libphonenumber-js
+                const phone = libphonenumber.parsePhoneNumber(phoneNumber);
+                if (!phone.isValid()) {
+                    alert("Please enter a valid phone number.");
+                    return;
+                }
+                const formattedPhoneNumber = phone.formatInternational();
 
-                if (error) throw error;
+                // Sign up the user in Supabase Authentication
+                const { data, error: signUpError } = await supabase.auth.signUp({
+                    email,
+                    password
+                });
 
-                // Store additional user info in 'users' table (excluding password)
+                if (signUpError) {
+                    console.error("Sign Up Error:", signUpError);
+                    alert(`Error: ${signUpError.message}`);
+                    return;
+                }
+
+                // Insert user data into the "users" table in Supabase
                 const { error: insertError } = await supabase.from("users").insert([
                     {
-                        id: data.user.id, // Use the user ID provided by Supabase
+                        id: data.user.id,
                         first_name: firstName,
                         middle_name: middleName,
                         last_name: lastName,
-                        phone_number: phoneNumber,
-                        email: email,
-                    },
+                        phone_number: formattedPhoneNumber,
+                        email: email
+                    }
                 ]);
 
-                if (insertError) throw insertError;
+                if (insertError) {
+                    console.error("Insert Error:", insertError);
+                    alert(`Error: ${insertError.message}`);
+                    return;
+                }
 
-                alert("Sign-up successful! Please verify your email.");
-                window.location.href = "login.html"; // Redirect to login page
+                alert("Sign-up successful!");
+                window.location.href = "login.html"; // Redirect to login page after successful sign-up
+
             } catch (error) {
-                console.error("Sign-up error:", error);
+                console.error("Error:", error);
                 alert(`Error: ${error.message}`);
             }
         });
