@@ -1,23 +1,10 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
-import { getFirestore, doc, setDoc, getDocs, collection, query, where } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+import { createClient } from '@supabase/supabase-js'
 import { parsePhoneNumber } from "https://cdn.jsdelivr.net/npm/libphonenumber-js@1.9.47/bundle/libphonenumber-min.js";
 
-// Firebase configuration (Updated)
-const firebaseConfig = {
-  apiKey: "AIzaSyBlWi6WIQi1c6TYasps8UpuCpz1EUJ8fYE",
-  authDomain: "fleduacademy-7b378.firebaseapp.com",
-  projectId: "fleduacademy-7b378",
-  storageBucket: "fleduacademy-7b378.firebasestorage.app",
-  messagingSenderId: "630369179653",
-  appId: "1:630369179653:web:e594eb02454392b37de46c",
-  measurementId: "G-FLS5SLG9PE"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
+// Supabase configuration
+const supabaseUrl = 'https://uppmptshwlagdyswdvko.supabase.co'
+const supabaseKey = 'your-anon-public-key'  // Replace with your actual key
+const supabase = createClient(supabaseUrl, supabaseKey)
 
 // Sign Up Function
 document.getElementById("signup-form")?.addEventListener("submit", async (e) => {
@@ -47,28 +34,25 @@ document.getElementById("signup-form")?.addEventListener("submit", async (e) => 
             return;
         }
 
-        // Check if the phone number is already in use
-        const usersRef = collection(db, "users");
-        const phoneQuery = query(usersRef, where("phoneNumber", "==", formattedPhoneNumber));
-        const querySnapshot = await getDocs(phoneQuery);
+        // Create the user in Supabase Authentication
+        const { user, error: signUpError } = await supabase.auth.signUp({
+            email,
+            password
+        });
 
-        if (!querySnapshot.empty) {
-            alert("This phone number is already registered. Please use a different one.");
-            return;
+        if (signUpError) {
+            throw new Error(signUpError.message);
         }
 
-        // Create the user in Firebase Authentication
-        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        const user = userCredential.user;
-
-        // Store additional user details in Firestore
-        await setDoc(doc(db, "users", user.uid), {
-            firstName,
-            middleName,
-            lastName,
-            phoneNumber: formattedPhoneNumber,
+        // Store additional user details in Supabase Database
+        await supabase.from("users").insert([{
+            id: user.id,
+            first_name: firstName,
+            middle_name: middleName,
+            last_name: lastName,
+            phone_number: formattedPhoneNumber,
             email
-        });
+        }]);
 
         alert("Sign-up successful!");
         window.location.href = "login.html"; // Redirect to login page
@@ -80,54 +64,56 @@ document.getElementById("signup-form")?.addEventListener("submit", async (e) => 
 
 // Login Function (Supports email or phone number)
 document.getElementById("login-form")?.addEventListener("submit", async (e) => {
-    e.preventDefault(); // Prevent form submission from refreshing the page
+    e.preventDefault();
 
     let identifier = document.getElementById("login-identifier").value;
     const password = document.getElementById("login-password").value;
 
     try {
-        console.log("Login attempt with:", identifier, password); // Log credentials
-
+        // Login with email
         if (identifier.includes("@")) {
-            // Login with email
-            await signInWithEmailAndPassword(auth, identifier, password);
-        } else {
-            // Attempt to format the phone number entered for consistent querying
-            try {
-                const phone = parsePhoneNumber(identifier);
-                identifier = phone.formatInternational();
-            } catch (formatError) {
-                // If parsing fails, the identifier remains as entered.
-                console.log("Invalid phone number format:", identifier);
-                throw new Error("Invalid phone number format.");
+            const { user, error } = await supabase.auth.signInWithPassword({
+                email: identifier,
+                password
+            });
+
+            if (error) {
+                throw new Error(error.message);
             }
 
-            // Login with phone number
-            const usersRef = collection(db, "users");
-            const q = query(usersRef, where("phoneNumber", "==", identifier));
-            const querySnapshot = await getDocs(q);
+            alert("Login successful!");
+            window.location.href = "dashboard.html"; // Redirect to dashboard page
 
-            if (!querySnapshot.empty) {
-                const userData = querySnapshot.docs[0].data();
-                await signInWithEmailAndPassword(auth, userData.email, password);
-            } else {
+        } else {
+            // Format phone number and query for user email
+            const phone = parsePhoneNumber(identifier);
+            identifier = phone.formatInternational();
+            
+            const { data, error } = await supabase
+                .from("users")
+                .select("email")
+                .eq("phone_number", identifier)
+                .single();
+
+            if (error) {
                 throw new Error("Phone number not found.");
             }
-        }
 
-        alert("Login successful!");
-        window.location.href = "dashboard.html"; // Redirect to dashboard page
+            const { user, signInError } = await supabase.auth.signInWithPassword({
+                email: data.email,
+                password
+            });
+
+            if (signInError) {
+                throw new Error(signInError.message);
+            }
+
+            alert("Login successful!");
+            window.location.href = "dashboard.html"; // Redirect to dashboard page
+        }
 
     } catch (error) {
-        console.error("Login error:", error); // Log the error to console for better debugging
-        // Handle specific error codes for better messaging
-        if (error.code === "auth/wrong-password") {
-            alert("Incorrect password. Please try again.");
-        } else if (error.code === "auth/user-not-found") {
-            alert("No user found with that email or phone number.");
-        } else {
-            alert(`Error: ${error.message}`);
-        }
+        alert(`Error: ${error.message}`);
     }
 });
 
@@ -136,7 +122,10 @@ document.getElementById("reset-password")?.addEventListener("click", async () =>
     const email = prompt("Enter your email to receive a password reset link:");
     if (email) {
         try {
-            await sendPasswordResetEmail(auth, email);
+            const { error } = await supabase.auth.api.resetPasswordForEmail(email);
+            if (error) {
+                throw new Error(error.message);
+            }
             alert("Password reset email sent! Check your inbox.");
         } catch (error) {
             alert(`Error: ${error.message}`);
