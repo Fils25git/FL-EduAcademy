@@ -2,16 +2,18 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
 import { getFirestore, doc, setDoc, getDocs, collection, query, where } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
 
+// Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyBFQY3GlLIYthBfCweSkFPt-y1OLP9HA5o",
     authDomain: "fleduportal.firebaseapp.com",
     projectId: "fleduportal",
     storageBucket: "fleduportal.firebasestorage.app",
     messagingSenderId: "103377001270",
-    appId: "1:103377001270:web:47946b9237f57820c7b197"
+    appId: "1:103377001270:web:47946b9237f57820c7b197",
     measurementId: "G-LSBLB50H94"
 };
 
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
@@ -19,21 +21,43 @@ const db = getFirestore(app);
 // Sign Up Function
 document.getElementById("signup-form")?.addEventListener("submit", async (e) => {
     e.preventDefault();
+
+    // Collect form data
     const firstName = document.getElementById("first-name").value;
-const middleName = document.getElementById("middle-name").value || "";
-const lastName = document.getElementById("last-name").value;
-const phoneNumber = document.getElementById("phone-number").value;
-const email = document.getElementById("signup-email").value;
-const password = document.getElementById("signup-password").value;
-const confirmPassword = document.getElementById("confirm-password").value;
+    const middleName = document.getElementById("middle-name").value || "";
+    const lastName = document.getElementById("last-name").value;
+    const phoneNumber = document.getElementById("phone-number").value;
+    const email = document.getElementById("signup-email").value;
+    const password = document.getElementById("signup-password").value;
+    const confirmPassword = document.getElementById("confirm-password").value;
 
-
-    if (password !== confirmPassword) {
-        alert("Passwords do not match!");
-        return;
-    }
-
+    // Validate phone number using libphonenumber-js
     try {
+        const phone = parsePhoneNumber(phoneNumber);
+        if (!phone.isValid()) {
+            alert("Please enter a valid phone number.");
+            return;
+        }
+
+        const formattedPhoneNumber = phone.formatInternational();
+
+        // Check if the passwords match
+        if (password !== confirmPassword) {
+            alert("Passwords do not match!");
+            return;
+        }
+
+        // Check if the phone number is already in use
+        const usersRef = collection(db, "users");
+        const phoneQuery = query(usersRef, where("phoneNumber", "==", formattedPhoneNumber));
+        const querySnapshot = await getDocs(phoneQuery);
+
+        if (!querySnapshot.empty) {
+            alert("This phone number is already registered. Please use a different one.");
+            return;
+        }
+
+        // Create the user in Firebase Authentication
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
 
@@ -42,14 +66,15 @@ const confirmPassword = document.getElementById("confirm-password").value;
             firstName,
             middleName,
             lastName,
-            phoneNumber,
+            phoneNumber: formattedPhoneNumber,
             email
         });
 
         alert("Sign-up successful!");
-        window.location.href = "login.html";
+        window.location.href = "login.html"; // Redirect to login page
+
     } catch (error) {
-        alert(error.message);
+        alert(`Error: ${error.message}`);
     }
 });
 
@@ -78,9 +103,10 @@ document.getElementById("login-form")?.addEventListener("submit", async (e) => {
         }
 
         alert("Login successful!");
-        window.location.href = "dashboard.html"; // Redirect to dashboard
+        window.location.href = "dashboard.html"; // Redirect to dashboard page
+
     } catch (error) {
-        alert(error.message);
+        alert(`Error: ${error.message}`);
     }
 });
 
@@ -92,7 +118,7 @@ document.getElementById("reset-password")?.addEventListener("click", async () =>
             await sendPasswordResetEmail(auth, email);
             alert("Password reset email sent! Check your inbox.");
         } catch (error) {
-            alert(error.message);
+            alert(`Error: ${error.message}`);
         }
     }
 });
