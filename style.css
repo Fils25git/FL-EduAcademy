@@ -12,8 +12,6 @@ body {
     color: #333;
     background-color: #f9f9f9;
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
 }
 
 /* Header Styling */
@@ -40,23 +38,10 @@ nav {
 nav ul {
     list-style: none;
     display: flex;
+    gap: 20px;
 }
 
-nav ul li {
-    margin-left: 25px;
-}
-
-nav a {
-    color: white;
-    text-decoration: none;
-    font-size: 16px;
-}
-
-nav a:hover {
-    text-decoration: underline;
-}
-
-/* Hamburger Menu Styling */
+/* Hamburger Menu Icon */
 .hamburger-menu {
     display: none;
     font-size: 24px;
@@ -66,7 +51,33 @@ nav a:hover {
     color: white;
 }
 
-/* Form Container Styling */
+/* Navigation Menu for Hamburger */
+nav ul#nav-links {
+    transition: max-height 0.3s ease-in-out;
+}
+
+/* Hero Section Styling for Welcome Page */
+.hero {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.cta-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.cta-item {
+    text-align: center;
+    padding: 10px;
+    max-width: 300px;
+}
+
+/* Form Container Styling (applies to sign up, login, reset pages) */
 .form-container {
     background-color: white;
     padding: 2.5rem;
@@ -78,62 +89,6 @@ nav a:hover {
     margin: 30px auto;
 }
 
-/* Form Title */
-h2 {
-    margin-bottom: 1.5rem;
-    font-size: 1.8rem;
-    color: #333;
-}
-
-/* Form Group */
-.form-group {
-    margin-bottom: 1.5rem;
-    text-align: left;
-}
-
-.form-group label {
-    font-size: 1rem;
-    color: #555;
-}
-
-.form-group input {
-    width: 100%;
-    padding: 1rem;
-    margin-top: 0.6rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 1rem;
-    background-color: #fafafa;
-    transition: all 0.3s ease-in-out;
-}
-
-.form-group input:focus {
-    border-color: #5c6bc0;
-    background-color: #fff;
-    outline: none;
-}
-
-/* Button Styling */
-button,
-.btn {
-    padding: 14px 24px;
-    font-size: 16px;
-    font-weight: bold;
-    color: white;
-    background-color: #4CAF50;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s ease-in-out;
-    width: 100%;
-    margin-top: 1rem;
-}
-
-button:hover,
-.btn:hover {
-    background-color: #45a049;
-}
-
 /* Footer Styling */
 footer {
     background-color: #4CAF50;
@@ -141,20 +96,7 @@ footer {
     text-align: center;
     padding: 20px;
     font-size: 14px;
-    margin-top: auto;
-}
-
-footer p {
-    margin: 5px 0;
-}
-
-footer a {
-    color: white;
-    text-decoration: none;
-}
-
-footer a:hover {
-    text-decoration: underline;
+    margin-top: 30px;
 }
 
 /* Responsive Design for Mobile Devices */
@@ -163,7 +105,6 @@ footer a:hover {
         display: block;
     }
     nav ul {
-        display: none;
         flex-direction: column;
         background: #4CAF50;
         position: absolute;
@@ -171,12 +112,9 @@ footer a:hover {
         right: 20px;
         width: 200px;
         padding: 10px;
-        text-align: center;
         border-radius: 5px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-    nav ul li {
-        margin: 10px 0;
+        display: none;
     }
     nav ul.show {
         display: flex;
@@ -187,11 +125,5 @@ footer a:hover {
     .form-container {
         width: 90%;
         padding: 1.5rem;
-    }
-    h2 {
-        font-size: 1.6rem;
-    }
-    .btn {
-        font-size: 1rem;
     }
 }
