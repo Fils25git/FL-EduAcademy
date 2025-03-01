@@ -1,25 +1,182 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Password Test</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - FL EduAcademy</title>
+    <link rel="stylesheet" href="style.css"> <!-- Link to your external CSS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/libphonenumber-js/1.9.33/libphonenumber-max.js"></script> <!-- Phone validation script -->
+    <link rel="icon" href="logo.png" type="image/png">
+
+    <!-- Supabase Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- JavaScript File for Supabase Auth -->
+    <script defer src="auth.js"></script>
 </head>
 <body>
-    <form id="test-form">
-        <input type="password" id="password" placeholder="Password" required>
-        <input type="password" id="confirm-password" placeholder="Confirm Password" required>
-        <button type="submit">Submit</button>
-    </form>
+
+    <header>
+        <!-- Hamburger Menu Icon -->
+        <div class="hamburger-menu" onclick="toggleMenu()">☰</div>
+
+        <!-- Navigation Menu -->
+        <nav>
+            <ul id="nav-links">
+                <li class="nav-home"><a href="index.html">Home</a></li>
+                <li class="nav-login"><a href="login.html">Log In</a></li>
+                <li class="nav-signup"><a href="signup.html">Sign Up</a></li>
+                <li><a href="privacy.html">Privacy Policy</a></li>
+                <li><a href="terms.html">Terms and Conditions</a></li>
+                <li><a href="about.html">About Us</a></li>
+            </ul>
+        </nav>
+        <a href="index.html">
+            <img src="logo.png" alt="FL EduAcademy Logo" class="logo">
+        </a>
+    </header>
+
+    <!-- Form Section: Sign Up Form -->
+    <section class="form-section">
+        <div class="form-container">
+            <h2>Sign Up for FL EduAcademy</h2>
+            <form id="signup-form">
+                <div class="form-group">
+                    <input type="text" id="first-name" name="firstName" placeholder="First Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="middle-name" name="middleName" placeholder="Middle Name (Optional)">
+                </div>
+                <div class="form-group">
+                    <input type="text" id="last-name" name="lastName" placeholder="Last Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="tel" id="phone-number" name="phoneNumber" placeholder="Phone Number" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="signup-email" name="email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="signup-password" name="password" placeholder="Enter your password" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="confirm-password" name="confirmPassword" placeholder="Confirm your password" required>
+                </div>
+                <button type="submit" class="btn">Sign Up</button>
+            </form>
+            <p>Already have an account? <a href="login.html">Log In here</a></p>
+
+            <!-- Announcement Section for Password Match -->
+            <div id="password-announcement" style="color: red; font-weight: bold;"></div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <p>Phone/WhatsApp: +250798652481</p>
+        <p>Email: fleduportal25@gmail.com</p>
+        <p>&copy; 2025 FL EduAcademy. All rights reserved.</p>
+    </footer>
+
     <script>
-        document.getElementById("test-form").addEventListener("submit", (e) => {
-            e.preventDefault();
-            const password = document.getElementById("password").value;
-            const confirmPassword = document.getElementById("confirm-password").value;
-            if (password !== confirmPassword) {
-                alert("Passwords do not match!");
-            } else {
-                alert("Passwords match!");
+        document.addEventListener("DOMContentLoaded", () => {
+            // Hamburger menu toggle
+            const menuButton = document.querySelector(".hamburger-menu");
+            const menu = document.getElementById("nav-links");
+
+            if (menuButton && menu) {
+                menuButton.addEventListener("click", function () {
+                    menu.classList.toggle("show");
+                });
             }
         });
     </script>
+
+    <script>
+        // Supabase setup
+        const supabaseUrl = 'https://uppmptshwlagdyswdvko.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVwcG1wdHNod2xhZ2R5c3dkdmtvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDA4MjA3ODMsImV4cCI6MjA1NjM5Njc4M30.rkXVCQoIun-Pff8APEbP98Cm0FvFt_BKRL81UkXl0IE';  // Replace with your actual Supabase anon key
+        const supabase = createClient(supabaseUrl, supabaseKey);
+
+        // Sign Up Function
+        document.getElementById("signup-form").addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const firstName = document.getElementById("first-name").value.trim();
+            const middleName = document.getElementById("middle-name").value.trim() || "";
+            const lastName = document.getElementById("last-name").value.trim();
+            const phoneNumber = document.getElementById("phone-number").value.trim();
+            const email = document.getElementById("signup-email").value.trim();
+            const password = document.getElementById("signup-password").value;
+            const confirmPassword = document.getElementById("confirm-password").value;
+
+            // Clear any previous messages
+            const announcement = document.getElementById("password-announcement");
+            announcement.textContent = "";
+
+            // Validate form data
+            if (!email || !password || !firstName || !lastName || !phoneNumber) {
+                alert("Please fill in all required fields.");
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                // Show password mismatch announcement
+                announcement.textContent = "Passwords do not match!";
+                announcement.style.color = "red";
+                return;
+            }
+
+            // Show success message when passwords match
+            announcement.textContent = "Passwords match!";
+            announcement.style.color = "green";
+
+            try {
+                // Validate phone number
+                const phone = libphonenumber.parsePhoneNumber(phoneNumber);
+                if (!phone.isValid()) {
+                    alert("Please enter a valid phone number.");
+                    return;
+                }
+                const formattedPhoneNumber = phone.formatInternational();
+
+                // Sign up the user in Supabase Authentication
+                const { data, error: signUpError } = await supabase.auth.signUp({
+                    email,
+                    password
+                });
+
+                if (signUpError) {
+                    console.error("Sign Up Error:", signUpError);
+                    alert(`Error: ${signUpError.message}`);
+                    return;
+                }
+
+                // Insert user data into the "users" table in Supabase
+                const { error: insertError } = await supabase.from("users").insert([{
+                    id: data.user.id,
+                    first_name: firstName,
+                    middle_name: middleName,
+                    last_name: lastName,
+                    phone_number: formattedPhoneNumber,
+                    email: email
+                }]);
+
+                if (insertError) {
+                    console.error("Insert Error:", insertError);
+                    alert(`Error inserting data: ${insertError.message}`);
+                    return;
+                }
+
+                // Successfully signed up and inserted data
+                alert("Sign-up successful! Redirecting...");
+                window.location.href = "login.html"; // Redirect to login page after successful sign-up
+
+            } catch (error) {
+                console.error("Error:", error);
+                alert(`Error: ${error.message}`);
+            }
+        });
+    </script>
+
 </body>
 </html>
