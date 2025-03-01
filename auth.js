@@ -114,7 +114,15 @@ document.getElementById("login-form")?.addEventListener("submit", async (e) => {
         window.location.href = "dashboard.html"; // Redirect to dashboard page
 
     } catch (error) {
-        alert(`Error: ${error.message}`);
+        console.error(error);
+        // Handle specific error codes for better messaging
+        if (error.code === "auth/wrong-password") {
+            alert("Incorrect password. Please try again.");
+        } else if (error.code === "auth/user-not-found") {
+            alert("No user found with that email or phone number.");
+        } else {
+            alert(`Error: ${error.message}`);
+        }
     }
 });
 
@@ -130,3 +138,4 @@ document.getElementById("reset-password")?.addEventListener("click", async () =>
         }
     }
 });
+
