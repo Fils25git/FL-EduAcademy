@@ -1,10 +1,10 @@
 // Ensure Supabase is loaded before this script runs
 const supabase = window.supabase.createClient(
-    "https://uppmptshwlagdyswdvko.supabase.co", // Supabase URL
+    "https://uppmptshwlagdyswdvko.supabase.co",
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVwcG1wdHNod2xhZ2R5c3dkdmtvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDA4MjA3ODMsImV4cCI6MjA1NjM5Njc4M30.rkXVCQoIun-Pff8APEbP98Cm0FvFt_BKRL81UkXl0IE"
 );
 
-// Sign Up Function
+// Sign-Up Function
 document.getElementById("signup-form")?.addEventListener("submit", async (e) => {
     e.preventDefault();
 
@@ -27,7 +27,6 @@ document.getElementById("signup-form")?.addEventListener("submit", async (e) => 
 
         if (error) throw error;
 
-        // Save user details in the database
         await supabase.from("users").insert([
             { id: data.user.id, first_name: firstName, last_name: lastName, email }
         ]);
@@ -42,6 +41,32 @@ document.getElementById("signup-form")?.addEventListener("submit", async (e) => 
         messageBox.style.display = "block";
     }
 });
+
+// Real-time password match check
+const passwordInput = document.getElementById("signup-password");
+const confirmPasswordInput = document.getElementById("confirm-password");
+const passwordMessage = document.getElementById("password-message");
+
+function checkPasswordMatch() {
+    if (passwordInput.value === "" || confirmPasswordInput.value === "") {
+        passwordMessage.textContent = "";
+        passwordMessage.style.display = "none";
+        return;
+    }
+    if (passwordInput.value === confirmPasswordInput.value) {
+        passwordMessage.textContent = "✅ Passwords match!";
+        passwordMessage.style.color = "green";
+        passwordMessage.style.display = "block";
+    } else {
+        passwordMessage.textContent = "❌ Passwords do not match!";
+        passwordMessage.style.color = "red";
+        passwordMessage.style.display = "block";
+    }
+}
+
+// Attach real-time validation to password fields
+passwordInput?.addEventListener("input", checkPasswordMatch);
+confirmPasswordInput?.addEventListener("input", checkPasswordMatch);
 
 // Login Function
 document.getElementById("login-form")?.addEventListener("submit", async (e) => {
@@ -73,7 +98,7 @@ document.getElementById("login-form")?.addEventListener("submit", async (e) => {
         messageBox.style.display = "block";
 
         setTimeout(() => {
-            window.location.href = "dashboard.html"; // Redirect after login
+            window.location.href = "dashboard.html";
         }, 2000);
 
     } catch (error) {
@@ -101,7 +126,7 @@ document.getElementById("reset-password-form")?.addEventListener("submit", async
         const { error } = await supabase.auth.resetPasswordForEmail(email);
         if (error) throw new Error(error.message);
 
-        messageBox.textContent = "✅ Password reset email sent! Check your inbox.";
+        messageBox.textContent = "✅ A password reset link has been sent to your inbox. Please check your email.";
         messageBox.style.color = "green";
         messageBox.style.display = "block";
 
